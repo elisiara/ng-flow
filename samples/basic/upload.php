@@ -12,6 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		header("HTTP/1.1 204 No Content");
 	}
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES)) {
+    $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
+    $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+
+    move_uploaded_file( $tempPath, $uploadPath );
+}
 // Just imitate that the file was uploaded and stored.
 sleep(2);
 echo json_encode([
